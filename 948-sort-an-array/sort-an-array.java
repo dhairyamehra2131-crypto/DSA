@@ -3,56 +3,41 @@ class Solution {
         mergeSort(nums, 0, nums.length - 1);
         return nums;
     }
-
-    void mergeSort(int[] nums, int left, int right) {
-
-        if (left >= right) {
+    void mergeSort(int[] a, int start, int end) {
+        if (start >= end)
             return;
-        }
-
-        int mid = left + (right - left) / 2;
-
-        mergeSort(nums, left, mid);
-        mergeSort(nums, mid + 1, right);
-
-        merge(nums, left, mid, right);
+        int mid = (start + end) / 2;
+        mergeSort(a, start, mid);
+        mergeSort(a, mid + 1, end);
+        merge(a, start, mid, end);
     }
-
-    void merge(int[] nums, int left, int mid, int right) {
-
-        int[] temp = new int[right - left + 1];
-
-        int i = left;
+    void merge(int[] a, int start, int mid, int end) {
+        int[] temp = new int[end - start + 1];
+        int i = start;
         int j = mid + 1;
         int k = 0;
-
-        while (i <= mid && j <= right) {
-
-            if (nums[i] <= nums[j]) {
-                temp[k] = nums[i];
+        while (i <= mid && j <= end) {
+            if (a[i] < a[j]) {
+                temp[k] = a[i];
                 i++;
             } else {
-                temp[k] = nums[j];
+                temp[k] = a[j];
                 j++;
             }
-
             k++;
         }
-
         while (i <= mid) {
-            temp[k] = nums[i];
+            temp[k] = a[i];
             i++;
             k++;
         }
-
-        while (j <= right) {
-            temp[k] = nums[j];
+        while (j <= end) {
+            temp[k] = a[j];
             j++;
             k++;
         }
-
         for (int x = 0; x < temp.length; x++) {
-            nums[left + x] = temp[x];
+            a[start + x] = temp[x];
         }
     }
 }
